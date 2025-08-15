@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
     // Disable ESLint during production builds or when SKIP_LINT is set
     ignoreDuringBuilds: process.env.NODE_ENV === 'production' || process.env.SKIP_LINT === 'true',
   },
+  serverExternalPackages: ['@supabase/supabase-js'],
   // Optional: Also disable TypeScript type checking if needed
   // typescript: {
   //   ignoreBuildErrors: process.env.NODE_ENV === 'production',

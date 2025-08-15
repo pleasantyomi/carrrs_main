@@ -12,7 +12,7 @@ export async function createClient(request: NextRequest) {
     },
   });
 
-  // Create Supabase client
+  // Create Supabase client with global configuration to avoid realtime issues
   const supabase = createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
       get(name: string) {
@@ -25,6 +25,16 @@ export async function createClient(request: NextRequest) {
         response.cookies.set(name, "", { ...options, maxAge: 0 });
       },
     },
+    global: {
+      headers: {
+        'cache-control': 's-maxage=1, stale-while-revalidate'
+      }
+    },
+    realtime: {
+      params: {
+        eventsPerSecond: 2
+      }
+    }
   });
 
   return { supabase, response };
